@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+  <div class="card">
+  <div class="card-header">Nuevo Producto</div>
+  <div class="card-body">
+    <form (ngSubmit)="submit()" >
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre:</label>
+        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name">
+      </div>
+      <div class="mb-3">
+        <label for="brand" class="form-label">Marca:</label>
+        <input type="text" class="form-control" id="brand" name="brand" [(ngModel)]="product.brand">
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Descripción:</label>
+        <textarea class="form-control" id="description" name="descrip" [(ngModel)]="product.descrip"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Precio:</label>
+        <input type="number" class="form-control" id="price" name="price" [(ngModel)]="product.price">
+      </div>
+      <div class="mb-3">
+        <label for="stock" class="form-label">Stock:</label>
+        <input type="number" class="form-control" id="stock" name="stock" [(ngModel)]="product.stock">
+      </div>
+      <a (click)="goBack()" class="btn btn-primary">
+        Volver
+      </a>
+      <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+  </div>
+</div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+:root {
+    --nav-color: #011627;  /* Color principal */
+    --secondary-color: #4B3F72; /* Color secundario */
+    --back-color: #FFFCE1; /* Color secundario */
+    --green-color: #417B5A; /* Color secundario */
+  }
+
+.btn-1 {
+    background-color: var(--green-color);
+    color: white;
+}
+
+body{
+    background-color: var(--back-color);
+}
+
+.bg-custom {
+    background-color: var(--primary-color);
+}
+
+footer {
+    background-color: var(--nav-color);
+}

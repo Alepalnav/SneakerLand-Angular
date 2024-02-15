@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de productos</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4 text-center">Sneakers</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <!-- Aquí irán los productos -->
+            @for (product of products; track product.id) {
+                <div class="col" >
+                    <div class="card h-100 shadow p-3">
+                        <img [src]="product.image" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h3 class="card-title">{{product.name}}</h3>
+                            <p class="card-text">{{product.price}}$</p>
+                            <a (click)="goToDetails(product.id)" class="btn btn-primary">Detalles</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <button (click)="prevPage()" [disabled]="numPage <= 1">Página anterior</button>
+    <button (click)="nextPage()">Página siguiente</button>
+
+    <button (click)="orderBy('id')">Ordenar por ID</button>
+    <button (click)="orderBy('name')">Ordenar por Nombre</button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
