@@ -31,10 +31,11 @@ export class DetailsComponent implements OnInit{
     this.router.navigate(['/products/edit',id])
   }
 
-  // delete(id:number){
-  //   this.servicio.deleteProduct(id).subscribe(response =>{
-  //     this.product=response;
-  //   })
-  // }
+  delete(id:number){
+    this.servicio.deleteProduct(id).subscribe({
+      next: ()=> 
+      this.router.navigate(['/products'])
+    })
+  }
 
 }

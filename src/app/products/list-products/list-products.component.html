@@ -23,11 +23,16 @@
             }
         </div>
     </div>
-    <button (click)="prevPage()" [disabled]="numPage <= 1">Página anterior</button>
-    <button (click)="nextPage()">Página siguiente</button>
-
-    <button (click)="orderBy('id')">Ordenar por ID</button>
-    <button (click)="orderBy('name')">Ordenar por Nombre</button>
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn btn-primary" (click)="prevPage()" [disabled]="numPage <= 1">Página anterior</button>
+        <div class="ml-2 mr-2"></div>
+        <button class="btn btn-primary" (click)="nextPage()">Página siguiente</button>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <button class="btn btn-primary" (click)="orderBy('id')">Ordenar por ID</button>
+        <div class="ml-2 mr-2"></div>
+        <button class="btn btn-primary" (click)="orderBy('brand')">Ordenar por marca</button>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

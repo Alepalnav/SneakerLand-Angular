@@ -1,60 +1,115 @@
+
 <div class="container">
-    <div class="row justify-content-center mt-5">
-      <div class="col-md-8">
-        <h1 class="display-1 text-center">SneakerLand</h1>
-        <h4 class="text-center">Subtítulo de la página</h4>
-      </div>
-      <div class="col-md-4">
+<div class="row justify-content-center align-items-center mt-5">
+    <div class="col-md-8 text-center">
+        <h1 class="display-1">SneakerLand</h1>
+        <h4>Subtítulo de la página</h4>
+    </div>
+    <div class="col-md-4 text-center">
         <img src="assets/logo.png" class="img-fluid" alt="Imagen de la página">
-      </div>
     </div>
-    <div class="col d-flex align-items-center justify-content-center">
-        <h2>Recomendaciones</h2>
+</div>
+    <div>
+        <div class="col-md-12">
+            <h2 class="text-center title-styled">Recomendaciones</h2>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-8 offset-md-2">
+            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="card h-100 shadow p-3">
+                                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                        <img [src]="products[0].image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title text-center">{{products[0].name}}</h3>
+                                        <a (click)="goToDetails(products[0].id)" class="btn btn-primary d-block mx-auto">Detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-item">
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="card h-100 shadow p-3">
+                                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                        <img [src]="products[1].image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title text-center">{{products[1].name}}</h3>
+                                        <a (click)="goToDetails(products[1].id)" class="btn btn-primary d-block mx-auto">Detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card-body">
+                            <div class="col">
+                                <div class="card h-100 shadow p-3">
+                                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                        <img [src]="products[2].image" class="card-img-top">
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title text-center">{{products[2].name}}</h3>
+                                        <a (click)="goToDetails(products[2].id)" class="btn btn-primary d-block mx-auto">Detalles</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Anterior</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Siguiente</span>
+                </a>
+            </div>
+        </div>
     </div>
     <div class="row mt-5">
-      <div class="col-md-6">
-        <div class="card">
-          <!-- Contenido de la primera card -->
-          
+        <div class="col-md-12">
+            <h2 class="text-center title-styled">Marcas</h2>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="card">
-          <!-- Contenido de la segunda card -->
-        </div>
-      </div>
     </div>
-    <div class="col d-flex align-items-center justify-content-center">
-        <h2>Marcas</h2>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-2">
+            <a href="ruta-marca-1" class="card-link">
+                <button>
+                    <span>Nike</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="ruta-marca-1" class="card-link">
+                <button>
+                    <span>Adidas</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="ruta-marca-1" class="card-link">
+                <button>
+                    <span>Puma</span>
+                </button>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="ruta-marca-1" class="card-link">
+                <button>
+                    <span>Vans</span>
+                </button>
+            </a>
+        </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-md-3">
-        <div class="card">
-          <!-- Contenido de la tercera card -->
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <!-- Contenido de la cuarta card -->
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <!-- Contenido de la quinta card -->
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card">
-          <!-- Contenido de la sexta card -->
-        </div>
-      </div>
-    </div>
-  </div>
-<!-- Bootstrap JS y dependencias -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Custom JS -->
-<script src="scripts.js"></script>
+</div>
   

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ProductDTO } from '../interfaces/product';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
@@ -16,9 +16,9 @@ export class ProductService {
     console.log('Servicio iniciado')
   }
 
-  // getProducts():Observable<Product[]>{
-  //   return this.http.get<Product[]>(`${this.url}/products`);
-  // }
+  getProducts():Observable<ProductDTO[]>{
+    return this.http.get<ProductDTO[]>(`${this.url}/products`);
+  }
 
   listProducts(numPage: number, pageSize: number, order: string, ad: boolean): Observable<ProductDTO[]> {
     // Configura los parámetros para la petición GET
@@ -52,9 +52,33 @@ export class ProductService {
     return this.http.get<ProductDTO>(`${this.url}/product/${id}`);
   }
 
-  addProduct(product: Omit<ProductDTO, 'id'>): Observable<ProductDTO>{
-    return this.http.post<ProductDTO>(`${this.url}/product`,product)
+  getFirstProduct(): Observable<ProductDTO> {
+    return this.http.get<ProductDTO>(`${this.url}/product/1`);
   }
+
+  getSecondProduct(): Observable<ProductDTO> {
+    return this.http.get<ProductDTO>(`${this.url}/product/2`);
+  }
+
+  getThirdProduct(): Observable<ProductDTO> {
+    return this.http.get<ProductDTO>(`${this.url}/product/3`);
+  }
+
+  //forkjoin para hacer tres llamadas simultaneas
+  getFirstThreeProducts(): Observable<ProductDTO[]> {
+    return forkJoin({
+      first: this.getFirstProduct(),
+      second: this.getSecondProduct(),
+      third: this.getThirdProduct()
+    }).pipe(
+      map(response => [response.first, response.second, response.third])
+    );
+  }
+
+
+  // addProduct(product: Omit<ProductDTO, 'id'>): Observable<ProductDTO>{
+  //   return this.http.post<ProductDTO>(`${this.url}/product`,product)
+  // }
 
   updateProduct(id: number, product: Omit<ProductDTO,'id'>):Observable<ProductDTO>{
     return this.http.put<ProductDTO>(`${this.url}/product/${id}`,product)
@@ -63,4 +87,16 @@ export class ProductService {
   deleteProduct(id: number):Observable<Object>{
     return this.http.delete<Object>(`${this.url}/product/${id}`)
   }
+
+  addProduct(product: Omit<ProductDTO, 'id'>, file: File): Observable<ProductDTO>{
+    const productBlob = new Blob([JSON.stringify(product)], { type: 'application/json' });
+  
+    const formData: FormData = new FormData();
+    formData.append('productDTO', productBlob);
+    formData.append('file', file, file.name);
+
+    return this.http.post<ProductDTO>(`${this.url}/product`,formData)
+  }
+
+  
 }

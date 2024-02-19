@@ -3,26 +3,34 @@
   <div class="card">
   <div class="card-header">Nuevo Producto</div>
   <div class="card-body">
-    <form (ngSubmit)="submit()" >
+    <form [formGroup]="productForm" (ngSubmit)="submit()" >
       <div class="mb-3">
         <label for="name" class="form-label">Nombre:</label>
-        <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name">
+        <input type="text" class="form-control" id="name" name="name" formControlName="name" required>
       </div>
       <div class="mb-3">
         <label for="brand" class="form-label">Marca:</label>
-        <input type="text" class="form-control" id="brand" name="brand" [(ngModel)]="product.brand">
+        <input type="text" class="form-control" id="brand" name="brand" formControlName="brand" required>
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Descripción:</label>
-        <textarea class="form-control" id="description" name="descrip" [(ngModel)]="product.descrip"></textarea>
+        <textarea class="form-control" id="description" name="descrip" formControlName="descrip" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Talla:</label>
+        <input type="number" class="form-control" id="size" name="size" formControlName="size" min="36" step="0.5" max="44" required>
+      </div>
+      <div class="mb-3">
+        <label for="price" class="form-label">Imagen:</label>
+        <input type="file" class="form-control" id="image" name="image" (change)="onFileChange($event)" required>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Precio:</label>
-        <input type="number" class="form-control" id="price" name="price" [(ngModel)]="product.price">
+        <input type="number" class="form-control" id="price" name="price" formControlName="price" min="0" step="0.01" required>
       </div>
       <div class="mb-3">
         <label for="stock" class="form-label">Stock:</label>
-        <input type="number" class="form-control" id="stock" name="stock" [(ngModel)]="product.stock">
+        <input type="number" class="form-control" id="stock" name="stock" formControlName="stock" min="0" required>
       </div>
       <a (click)="goBack()" class="btn btn-primary">
         Volver
