@@ -4,11 +4,13 @@ import { ProductDTO } from '../../interfaces/product';
 import { Router, RouterOutlet } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ProductService } from '../../services/product.service';
+import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [FormsModule, RouterOutlet, ReactiveFormsModule],
+  imports: [FormsModule, RouterOutlet, ReactiveFormsModule, CommonModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
@@ -44,6 +46,8 @@ export class FormComponent implements OnInit{
           next: (producto) => {
             this.productForm.patchValue(producto);
             this.edit = true;
+            console.log(this.edit);
+            
           }
         })
     }
@@ -51,13 +55,37 @@ export class FormComponent implements OnInit{
 
   submit() {
     if (this.edit) {
-      this.service.updateProduct(this.id, this.productForm.value)
+      if(this.file!=null){
+      this.service.updateProduct(this.id, this.productForm.value,this.file)
         .subscribe({
           next: (product) => {
             this.exito = true;
-            this.router.navigate(['/products']);
+            this.productForm.reset({
+              name: '',
+              brand: '',
+              descrip: '',
+              size: 0,
+              image: '',
+              price: 0,
+              stock: 0,
+              remove: 0,
+              details: []
+            });
           }
         })
+        Swal.fire({
+          title: "Good job!",
+          text: "You edit the product!",
+          icon: "success"
+        });
+        this.router.navigate(['/products']);
+      }else{
+        Swal.fire({
+          title: "Oops...",
+          text: "You must choose a image",
+          icon: "error"
+        });
+      }
     } else {
       if(this.file===null){
         console.error('El archivo es nulo')
@@ -79,6 +107,11 @@ export class FormComponent implements OnInit{
             });
           }
         })
+        Swal.fire({
+          title: "Good job!",
+          text: "You add a new product!",
+          icon: "success"
+        });
         this.router.navigate(['/products'])
       }
     }

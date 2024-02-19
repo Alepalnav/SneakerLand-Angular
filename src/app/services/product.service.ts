@@ -80,9 +80,9 @@ export class ProductService {
   //   return this.http.post<ProductDTO>(`${this.url}/product`,product)
   // }
 
-  updateProduct(id: number, product: Omit<ProductDTO,'id'>):Observable<ProductDTO>{
-    return this.http.put<ProductDTO>(`${this.url}/product/${id}`,product)
-  }
+  // updateProduct(id: number, product: Omit<ProductDTO,'id'>):Observable<ProductDTO>{
+  //   return this.http.put<ProductDTO>(`${this.url}/product/${id}`,product)
+  // }
 
   deleteProduct(id: number):Observable<Object>{
     return this.http.delete<Object>(`${this.url}/product/${id}`)
@@ -98,5 +98,14 @@ export class ProductService {
     return this.http.post<ProductDTO>(`${this.url}/product`,formData)
   }
 
+  updateProduct(id: number,product: Omit<ProductDTO, 'id'>, file: File): Observable<ProductDTO>{
+    const productBlob = new Blob([JSON.stringify(product)], { type: 'application/json' });
   
+    const formData: FormData = new FormData();
+    formData.append('productDTO', productBlob);
+    formData.append('file', file, file.name);
+
+    return this.http.put<ProductDTO>(`${this.url}/product/${id}`,formData)
+  }
+
 }
