@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <h3 class="card-title">{{product.name}}</h3>
                             <p class="card-text">{{product.price}}$</p>
-                            <a (click)="goToDetails(product.id)" class="btn btn-primary">Detalles</a>
+                            <a (click)="goToDetails(product.id)" class="btn btn-1">Detalles</a>
                         </div>
                     </div>
                 </div>
@@ -24,15 +24,16 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-5">
-        <button class="btn btn-primary" (click)="prevPage()" [disabled]="numPage <= 1">Página anterior</button>
+        <button class="btn btn-1" (click)="prevPage()" [disabled]="numPage <= 1">Página anterior</button>
         <div class="ml-2 mr-2"></div>
-        <button class="btn btn-primary" (click)="nextPage()">Página siguiente</button>
+        <button class="btn btn-1" (click)="nextPage()">Página siguiente</button>
     </div>
     <div class="d-flex justify-content-center mt-3">
-        <button class="btn btn-primary" (click)="orderBy('id')">Ordenar por ID</button>
+        <button class="btn btn-1" (click)="orderBy('id')">Ordenar por ID</button>
         <div class="ml-2 mr-2"></div>
-        <button class="btn btn-primary" (click)="orderBy('brand')">Ordenar por marca</button>
+        <button class="btn btn-1" (click)="orderBy('brand')">Ordenar por marca</button>
     </div>
+    <br>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

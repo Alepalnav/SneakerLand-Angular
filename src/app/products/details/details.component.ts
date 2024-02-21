@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProductDTO } from '../../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-details',
@@ -34,8 +35,12 @@ export class DetailsComponent implements OnInit{
   delete(id:number){
     this.servicio.deleteProduct(id).subscribe({
       next: ()=> 
-      this.router.navigate(['/products'])
-    })
+        this.router.navigate(['/products']),
+      })
+      Swal.fire({
+        title: "Good job!",
+        text: "You delete the product!",
+        icon: "success"
+      });
   }
-
 }

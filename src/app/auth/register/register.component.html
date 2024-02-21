@@ -1,0 +1,35 @@
+<div class="container" style="max-width: 600px;">
+    <br>					
+    <div class="card shadow">
+          <div class="card-body">				
+    <h1>Register</h1>
+    <form th:action="@{/register/submit}" th:object="${user}" method="post" enctype="multipart/form-data">
+        <label>Id:</label>
+        <input id="id" name="id" type="number" class="form-control" required>
+        <label>User:</label>
+        <input th:field="*{user}" type="text" class="form-control" required>
+        <label>Name:</label>
+        <input th:field="*{name}" type="text" class="form-control" required>
+        <label>Password:</label>
+        <input th:field="*{password}" type="password" class="form-control" required>
+        <label>Confirm password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+        <label>Email:</label>
+        <input th:field="*{email}" type="email" class="form-control" required>
+        <label>Cod Postal:</label>
+        <input th:field="*{codPostal}" type="text" class="form-control" required>
+        <label>Pueblo:</label>
+        <select  class="form-control" name="town">
+            <option th:each="town : ${listTown}" th:value="${town.codpue}" th:text="${town.name}"></option>
+        </select>
+        <label>Image:</label>
+        <input type="file" class="form-control" id="img" name="img">
+        <div th:if="${error}" class="alert alert-danger">
+            <p th:text="${error}"></p>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
+          </div>
+    </div>
+</div>

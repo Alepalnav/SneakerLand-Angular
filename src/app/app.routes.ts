@@ -23,6 +23,9 @@ export const routes: Routes = [
     {path:'',component: IndexComponent},
     {path: 'products',
     loadChildren: () => import('./products/routes').then(mod => mod.routes),
-}
+    },
+    {path: 'auth',
+    loadChildren: () => import('./auth/routes').then(mod => mod.routes),
+    }
 
 ];
