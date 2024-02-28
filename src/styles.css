@@ -9,6 +9,10 @@
     background-color: var(--green-color);
     color: white;
 }
+.btn-1:hover {
+    background-color: #01325a;
+    color: white;
+}
 
 body{
     background-color: var(--back-color);

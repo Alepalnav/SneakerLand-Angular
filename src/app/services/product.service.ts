@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ProductDTO } from '../interfaces/product';
 import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root'

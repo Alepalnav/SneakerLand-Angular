@@ -1,0 +1,9 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.card-body {
+    background-color: #0e4f88;
+    color: #fff;
+    border-radius: 1rem;
+}

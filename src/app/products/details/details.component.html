@@ -25,12 +25,12 @@
                             </button>
                           </a>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto" *ngIf="isAdmin">
                             <a (click)="goToEdit(product.id)" class="btn btn-warning">
                                 Editar
                             </a>
                         </div>
-                        <div class="col-auto">
+                        <div class="col-auto" *ngIf="isAdmin">
                           <a (click)="delete(product.id)" class="btn btn-danger">
                             Delete
                           </a>

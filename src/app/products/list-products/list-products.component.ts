@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductDTO } from '../../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-list-products',
@@ -11,6 +12,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './list-products.component.css'
 })
 export class ListProductsComponent implements OnInit{
+
 
   products: ProductDTO[]=[];
   numPage = 1; // Página por defecto
@@ -29,6 +31,8 @@ export class ListProductsComponent implements OnInit{
   //       this.products=productsList;
   //     })
   // }
+
+  
 
   this.loadProducts();
 
