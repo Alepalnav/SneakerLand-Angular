@@ -24,25 +24,29 @@ export class LoginComponent {
     private router: Router
   ){}
 
-  onSubmit(){
+  onSubmit() {
     this.service.login(this.loginCredentials).subscribe((resp: string) => {
-      console.log(resp);
-      localStorage.setItem('token',resp);
+      localStorage.setItem('token', resp);
       Swal.fire({
         title: "Good job!",
         text: "You are logged!",
         icon: "success",
-        showConfirmButton: true, // Mostrar el botón de confirmación
-        confirmButtonText: "OK" // Personalizar el texto del botón de confirmación
+        showConfirmButton: true,
+        confirmButtonText: "OK"
       }).then((result) => {
-        if (result.isConfirmed) { // Verificar si se ha confirmado
+        if (result.isConfirmed) {
           this.router.navigate(['/']).then(() => {
             window.location.href = window.location.href;
           });
         }
       });
-    })
-
+    }, (err) => {
+      Swal.fire({
+        title: "Oops...",
+        text: "Credentials wrong!",
+        icon: "error"
+      });
+    });
   }
 
 }

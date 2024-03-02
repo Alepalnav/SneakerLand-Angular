@@ -1,17 +1,18 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ProductDTO } from '../../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-products',
   standalone: true,
-  imports: [RouterOutlet, RouterLink],
+  imports: [RouterOutlet, RouterLink, CommonModule],
   templateUrl: './list-products.component.html',
   styleUrl: './list-products.component.css'
 })
-export class ListProductsComponent implements OnInit{
+export class ListProductsComponent implements OnChanges{
 
 
   products: ProductDTO[]=[];
@@ -20,33 +21,42 @@ export class ListProductsComponent implements OnInit{
   pageSize = 12;
   ad = false;
 
+  error=false;
+
+  currentFilterName: string | null = null;
+  @Input() searchTerm: string='';
+
   constructor(
     private servicio: ProductService,
     private router: Router
   ){}
 
-  ngOnInit(): void {
-
-  //     this.servicio.getProducts().subscribe((productsList)=>{
-  //       this.products=productsList;
-  //     })
-  // }
-
-  
-
+  ngOnChanges(): void {
+  this.numPage=1;
   this.loadProducts();
+  
+}
 
-  }
-    loadProducts(): void {
-      this.servicio.listProducts(this.numPage, this.pageSize, this.order, this.ad)
-      .subscribe(
-        response => {
-          this.products = response;
-        },
-        error => {
-          console.error('Error al cargar los productos:', error);
+loadProducts(): void {
+      if(this.searchTerm){
+        try{
+          this.servicio.listProductsSearchs(this.numPage, this.pageSize, this.order, this.ad,this.searchTerm)
+          .subscribe(
+            response=>{
+                this.products=response;
+            }
+          );
+        }catch(error){
+          this.products=[];
+        };
+      }else{
+        this.servicio.listProducts(this.numPage, this.pageSize, this.order, this.ad)
+        .subscribe(
+          response => {
+            this.products = response;
+          }
+          );
         }
-      );
     }
 
   nextPage(): void {
@@ -74,5 +84,12 @@ export class ListProductsComponent implements OnInit{
   goToDetails(id: number){
     this.router.navigate(['/products/product',id])
   }
+
+  onSearch(searchTerm: string):void{
+    this.searchTerm=searchTerm.trim().toLowerCase();
+    this.loadProducts();
+  }
+
+ 
   
 }

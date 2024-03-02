@@ -47,7 +47,6 @@ export class UserService {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken: any = jwtDecode(token) // Decodificar el token
-      console.log(decodedToken);
       return decodedToken;
     }
     return null;
@@ -57,5 +56,7 @@ export class UserService {
     localStorage.removeItem('token');
     this.setCurrentUser(null);
   }
+
+
 
 }

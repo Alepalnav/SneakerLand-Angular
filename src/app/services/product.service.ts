@@ -109,4 +109,61 @@ export class ProductService {
     return this.http.put<ProductDTO>(`${this.url}/product/${id}`,formData)
   }
 
+  listProductsBrand(numPage: number, pageSize: number, order: string, ad: boolean, brand:string): Observable<ProductDTO[]> {
+    // Configura los parámetros para la petición GET
+    const params = new HttpParams()
+      .set('numPage', numPage.toString())
+      .set('pageSize', pageSize.toString())
+      .set('order', order)
+      .set('ad', ad ? 'asc' : 'desc');
+
+    return this.http.get<any>(`${this.url}/products/${brand}`, { params })
+      .pipe(
+        map(response => response.content.map((product: any) => ({
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          descrip: product.descrip,
+          size: product.size,
+          image: product.image,
+          price: product.price,
+          stock: product.stock,
+          remove: product.remove
+        }))),
+        catchError(err => {
+          console.error('Error al cargar los productos:', err);
+          return throwError(err);
+        })
+      );
+  }
+
+  listProductsSearchs(numPage: number, pageSize: number, order: string, ad: boolean, search:string): Observable<ProductDTO[]> {
+    // Configura los parámetros para la petición GET
+    const params = new HttpParams()
+      .set('search', search)
+      .set('numPage', numPage.toString())
+      .set('pageSize', pageSize.toString())
+      .set('order', order)
+      .set('ad', ad ? 'asc' : 'desc');
+
+    return this.http.get<any>(`${this.url}/products/filter`, { params })
+      .pipe(
+        map(response => response.content.map((product: any) => ({
+          id: product.id,
+          name: product.name,
+          brand: product.brand,
+          descrip: product.descrip,
+          size: product.size,
+          image: product.image,
+          price: product.price,
+          stock: product.stock,
+          remove: product.remove
+        }))),
+        catchError(err => {
+          console.error('Error al cargar los productos:', err);
+          return throwError(err);
+        })
+      );
+  }
+
 }

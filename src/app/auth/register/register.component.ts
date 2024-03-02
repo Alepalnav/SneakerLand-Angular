@@ -30,20 +30,41 @@ export class RegisterComponent {
   constructor(
     private service: UserService,
     private router: Router
-
     ){}
 
   onSubmit(){
-    this.service.register(this.user).subscribe(
-      (response: User)=> {
-        Swal.fire({
-          title: "Good job!",
-          text: "You are register!",
-          icon: "success"
-        });
-        this.router.navigate(['/auth/login'])
-      }
-    )
-  }
+    if (!this.user.username || !this.user.name || !this.user.email || !this.user.password || !this.confirmPassword) {
+      Swal.fire({
+        title: "Oops...",
+        text: "Please fill in all fields!",
+        icon: "error"
+      });
+      return;
+    }
 
+    if (this.user.password === this.confirmPassword) {
+      this.service.register(this.user).subscribe(
+        (response: User)=> {
+          Swal.fire({
+            title: "Good job!",
+            text: "You are register!",
+            icon: "success"
+          });
+          this.router.navigate(['/auth/login'])
+        },(err)=>{
+          Swal.fire({
+            title: "Oops...",
+            text: "Not valid!",
+            icon: "error"
+          });
+        }
+      )
+    }else{
+        Swal.fire({
+          title: "Oops...",
+          text: "Confirm password not valid!",
+          icon: "error"
+        });
+    }
+  }
 }

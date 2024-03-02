@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit{
+
+  @Output() searchEvent: EventEmitter<string>= new EventEmitter<string>();
+  searchTerm: string = '';
 
   isAdmin = false;
   isLogged = false;
@@ -42,6 +45,12 @@ export class NavbarComponent implements OnInit{
           });
         }
       });
+    }
+
+     
+    
+    search(): void{
+      this.searchEvent.emit(this.searchTerm.trim().toLowerCase());
     }
 
 }

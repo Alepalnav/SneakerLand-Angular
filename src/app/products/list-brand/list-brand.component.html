@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5 mb-4 text-center">Products</h1>
+        <h1 class="mt-5 mb-4 text-center">{{brand}}</h1>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @for (product of products; track product.id) {
                 <div class="col" >
@@ -20,9 +20,6 @@
                     </div>
                 </div>
             }
-        </div>
-        <div *ngIf="products.length===0">
-            <h3 class="mt-5 mb-4 text-center" style="color: red;">No hay resultados</h3>
         </div>
     </div>
     <div class="d-flex justify-content-center mt-5">

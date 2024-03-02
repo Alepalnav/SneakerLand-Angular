@@ -46,8 +46,6 @@ export class FormComponent implements OnInit{
           next: (producto) => {
             this.productForm.patchValue(producto);
             this.edit = true;
-            console.log(this.edit);
-            
           }
         })
     }

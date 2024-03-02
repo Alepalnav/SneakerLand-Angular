@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductDTO } from '../interfaces/product';
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
 })
 export class IndexComponent implements OnInit{
   
   products: ProductDTO[]=[];
+  currentFilterName: string | null = null;
 
   constructor(
     private servicio: ProductService,
@@ -29,4 +30,9 @@ export class IndexComponent implements OnInit{
     this.router.navigate(['/products/product',id])
   }
 
+  goToBrand(brand:string){
+    this.router.navigate(['/products/products',brand])
+  }
+
+  
 }
