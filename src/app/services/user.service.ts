@@ -13,7 +13,7 @@ export class UserService {
   users:User[]=[];
 
   private currentUser: any;
-  private url: string = 'http://localhost:8080';
+  private url: string = 'https://proyectoapi-alepalnav.onrender.com';
 
   constructor(private http: HttpClient) {
     this.currentUser = this.getCurrentUserFromToken();

@@ -9,7 +9,7 @@ import { User } from '../interfaces/user';
 })
 export class ProductService {
 
-  private url: string = 'http://localhost:8080';
+  private url: string = 'https://proyectoapi-alepalnav.onrender.com';
 
   private products: ProductDTO[]=[];
 
