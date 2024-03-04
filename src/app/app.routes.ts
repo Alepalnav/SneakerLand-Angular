@@ -3,6 +3,8 @@ import { ListProductsComponent } from './products/list-products/list-products.co
 import { DetailsComponent } from './products/details/details.component';
 import { IndexComponent } from './index/index.component';
 import { FormComponent } from './products/form/form.component';
+import { ErrorComponent } from './error/error.component';
+import { authRoleTsGuard } from './guards/auth-role.ts.guard';
 
 export const routes: Routes = [
 
@@ -26,6 +28,11 @@ export const routes: Routes = [
     },
     {path: 'auth',
     loadChildren: () => import('./auth/routes').then(mod => mod.routes),
-    }
+    },
+    {path: 'users',
+    loadChildren: () => import('./users/routes').then(mod => mod.routes),
+    },
+    {path:'**',component: ErrorComponent}
+
 
 ];

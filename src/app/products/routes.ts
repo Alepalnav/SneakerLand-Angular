@@ -3,11 +3,12 @@ import { ListProductsComponent } from "./list-products/list-products.component";
 import { FormComponent } from "./form/form.component";
 import { DetailsComponent } from "./details/details.component";
 import { ListBrandComponent } from "./list-brand/list-brand.component";
+import { authRoleTsGuard } from "../guards/auth-role.ts.guard";
 
 export const routes: Routes = [
     {path: '', component: ListProductsComponent},
-    {path: 'edit/:id',component: FormComponent},
-    {path:'add', component:FormComponent},
+    {path: 'edit/:id',component: FormComponent,canMatch:[authRoleTsGuard]},
+    {path:'add', component:FormComponent,canMatch:[authRoleTsGuard]},
     {path:'product/:id',component:DetailsComponent},
     {path:'products/:brand',component:ListBrandComponent}
 ]

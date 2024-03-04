@@ -10,6 +10,8 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class UserService {
 
+  users:User[]=[];
+
   private currentUser: any;
   private url: string = 'http://localhost:8080';
 
@@ -43,6 +45,16 @@ export class UserService {
     return this.currentUser?.role === 'admin';
   }
 
+  getUserRole():string {
+    if(this.currentUser!=null){
+      return this.currentUser.role;
+    }else{
+      return '';
+    }
+  }
+
+  
+
   private getCurrentUserFromToken(): any {
     const token = localStorage.getItem('token');
     if (token) {
@@ -57,6 +69,9 @@ export class UserService {
     this.setCurrentUser(null);
   }
 
+  getUsers():Observable<User[]>{
+    return this.http.get<User[]>(`${this.url}/users`);
 
+  }
 
 }
