@@ -47,8 +47,6 @@ export class NavbarComponent implements OnInit{
       });
     }
 
-     
-    
     search(): void{
       this.searchEvent.emit(this.searchTerm.trim().toLowerCase());
     }

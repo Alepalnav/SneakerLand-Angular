@@ -3,11 +3,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductService } from './services/product.service';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, NgxUiLoaderModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

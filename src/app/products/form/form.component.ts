@@ -24,18 +24,19 @@ export class FormComponent implements OnInit{
 
   constructor(
     private router: Router,
+    private formBuilder: FormBuilder,
     private service: ProductService
   ) {
-    this.productForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      brand: new FormControl('', Validators.required),
-      descrip: new FormControl('', Validators.required),
-      size: new FormControl(0, Validators.required),
-      image: new FormControl('', Validators.required),
-      price: new FormControl(0, Validators.required),
-      stock: new FormControl(0, Validators.required),
-      remove: new FormControl(0, Validators.required),
-      details: new FormControl([])
+    this.productForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      brand: ['', Validators.required],
+      descrip: ['', Validators.required],
+      size: [0, Validators.required],
+      image: [''],
+      price: [0, Validators.required],
+      stock: [0, Validators.required],
+      remove: [0, Validators.required],
+      details: [[]]
     });
   }
 
@@ -43,80 +44,71 @@ export class FormComponent implements OnInit{
     if (this.id) {
       this.service.getProduct(this.id)
         .subscribe({
-          next: (producto) => {
-            this.productForm.patchValue(producto);
+          next: (product) => {
+            this.productForm.patchValue(product);
             this.edit = true;
+          },
+          error: (error) => {
+            console.error('Error fetching product:', error);
           }
-        })
+        });
     }
   }
 
-  submit() {
-    if (this.edit) {
-      if(this.file!=null){
-      this.service.updateProduct(this.id, this.productForm.value,this.file)
-        .subscribe({
-          next: (product) => {
-            this.exito = true;
-            this.productForm.reset({
-              name: '',
-              brand: '',
-              descrip: '',
-              size: 0,
-              image: '',
-              price: 0,
-              stock: 0,
-              remove: 0,
-              details: []
+  submit(): void {
+    if (this.productForm.valid) { // Validar si el formulario es válido antes de enviar
+      if (this.edit) {
+        this.service.updateProduct(this.id, this.productForm.value, this.file)
+          .subscribe({
+            next: (product) => {
+              this.exito = true;
+              this.productForm.reset();
+              Swal.fire({
+                title: 'Good job!',
+                text: 'You edited the product!',
+                icon: 'success'
+              });
+              this.router.navigate(['/products']);
+            },
+            error: (error) => {
+              console.error('Error updating product:', error);
+            }
+          });
+      } else {
+        if (!this.file) {
+          console.error('El archivo es nulo');
+        } else {
+          this.service.addProduct(this.productForm.value, this.file)
+            .subscribe({
+              next: (product) => {
+                this.exito = true;
+                this.productForm.reset();
+                Swal.fire({
+                  title: 'Good job!',
+                  text: 'You added a new product!',
+                  icon: 'success'
+                });
+                this.router.navigate(['/products']);
+              },
+              error: (error) => {
+                console.error('Error adding product:', error);
+              }
             });
-          }
-        })
-        Swal.fire({
-          title: "Good job!",
-          text: "You edit the product!",
-          icon: "success"
-        });
-        this.router.navigate(['/products']);
-      }else{
-        Swal.fire({
-          title: "Oops...",
-          text: "You must choose a image",
-          icon: "error"
-        });
+        }
       }
     } else {
-      if(this.file===null){
-        console.error('El archivo es nulo')
-      }else {
-        this.service.addProduct(this.productForm.value, this.file)
-        .subscribe({
-          next: (producto) => {
-            this.exito = true;
-            this.productForm.reset({
-              name: '',
-              brand: '',
-              descrip: '',
-              size: 0,
-              image: '',
-              price: 0,
-              stock: 0,
-              remove: 0,
-              details: []
-            });
-          }
-        })
-        Swal.fire({
-          title: "Good job!",
-          text: "You add a new product!",
-          icon: "success"
-        });
-        this.router.navigate(['/products'])
-      }
+      // Manejar el caso donde el formulario no es válido (campos requeridos faltantes)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please fill out all required fields.',
+        icon: 'error'
+      });
     }
-    }
-    
-    goBack(){
-      this.router.navigate(['/products'])
+  }
+
+  
+  goBack(): void {
+    this.router.navigate(['/products']);
   }
 
   onFileChange(event: any): void {

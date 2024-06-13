@@ -1,9 +1,12 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { ProductDTO } from '../../interfaces/product';
+import { ProductDTO, Detail, Order, AddToCart } from '../../interfaces/product';
 import { ProductService } from '../../services/product.service';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { CartService } from '../../services/cart.service';
+import { User } from '../../interfaces/user';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-products',
@@ -14,6 +17,9 @@ import { CommonModule } from '@angular/common';
 })
 export class ListProductsComponent implements OnChanges{
 
+  pedido!:Omit<Order,'id_order'|'details'>;
+  id_pedido!:number;
+  detail!:AddToCart;
 
   products: ProductDTO[]=[];
   numPage = 1; // Página por defecto
@@ -23,17 +29,23 @@ export class ListProductsComponent implements OnChanges{
 
   error=false;
 
+  isLogged=false;
+
   currentFilterName: string | null = null;
   @Input() searchTerm: string='';
 
   constructor(
     private servicio: ProductService,
+    private cartServicio: CartService,
+    private userService: UserService,
     private router: Router
   ){}
 
   ngOnChanges(): void {
+    this.isLogged = this.userService.getCurrentUser()!=null; 
   this.numPage=1;
   this.loadProducts();
+
   
 }
 
@@ -90,6 +102,27 @@ loadProducts(): void {
     this.loadProducts();
   }
 
- 
+  buy(product:ProductDTO):void{
+
+    this.detail = {
+      product: product,
+      cant:    1,
+      price:   product.price
+    }
+
+    this.cartServicio.addToCart(this.detail);
+    product.stock--;
+    this.servicio.updateProductNoImage(product.id,product).subscribe({
+      next: (res)=>{
+        product=res;
+      }
+    })
+
+    Swal.fire({
+      title: "Good job!",
+      text: "Added product to cart!",
+      icon: "success"
+    });
+  }
   
 }

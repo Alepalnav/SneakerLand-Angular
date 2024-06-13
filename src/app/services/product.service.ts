@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductDTO } from '../interfaces/product';
 import { Observable, catchError, forkJoin, map, throwError } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from '../interfaces/user';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { User } from '../interfaces/user';
 })
 export class ProductService {
 
-  private url: string = 'http://localhost:8080';
+  private url: string = 'https://proyectoapi-alepalnav.onrender.com';
 
   private products: ProductDTO[]=[];
 
@@ -95,16 +95,27 @@ export class ProductService {
     const formData: FormData = new FormData();
     formData.append('productDTO', productBlob);
     formData.append('file', file, file.name);
+    
 
     return this.http.post<ProductDTO>(`${this.url}/product`,formData)
   }
 
-  updateProduct(id: number,product: Omit<ProductDTO, 'id'>, file: File): Observable<ProductDTO>{
+  updateProduct(id: number,product: Omit<ProductDTO, 'id'>, file: File | null): Observable<ProductDTO>{
     const productBlob = new Blob([JSON.stringify(product)], { type: 'application/json' });
   
     const formData: FormData = new FormData();
     formData.append('productDTO', productBlob);
-    formData.append('file', file, file.name);
+    if(file!=null){
+      formData.append('file', file, file.name);
+      }
+
+    return this.http.put<ProductDTO>(`${this.url}/product/${id}`,formData)
+  }
+  updateProductNoImage(id: number,product: Omit<ProductDTO, 'id'>): Observable<ProductDTO>{
+    const productBlob = new Blob([JSON.stringify(product)], { type: 'application/json' });
+  
+    const formData: FormData = new FormData();
+    formData.append('productDTO', productBlob);
 
     return this.http.put<ProductDTO>(`${this.url}/product/${id}`,formData)
   }
