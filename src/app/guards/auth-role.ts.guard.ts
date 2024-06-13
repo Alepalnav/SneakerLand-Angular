@@ -8,11 +8,10 @@ export const authRoleTsGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   // Verifica si el usuario esta autenticado y obtiene el rol
-  const isLoggedIn = userService.getCurrentUser()!=null;
+  const isLoggedIn = userService.getCurrentUser() != null;
   const userRole = userService.getUserRole();
 
-
-  if (isLoggedIn && (userRole === 'admin' || userRole === 'user')) {
+  if (isLoggedIn && userRole === 'admin') {
     return true;
   } else if (isLoggedIn && userRole !== 'admin') {
     Swal.fire({
@@ -30,5 +29,5 @@ export const authRoleTsGuard: CanActivateFn = (route, state) => {
       confirmButtonColor: "#FFC107"
     });
     return router.createUrlTree(['/auth/login']);
-  }};
-
+  }
+};

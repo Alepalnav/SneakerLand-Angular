@@ -1,8 +1,13 @@
+<br>
+<br>
+<br>
+<br>
 <div class="container">
     <div class="row justify-content-center mt-5">
       <div class="col-md-10">
         <div class="card border-1 shadow-sm">
           <div class="row g-0">
+            @if(product){
             <div class="col-md-4">
               <img src="{{ product.image }}" class="img-fluid rounded-start" alt="{{ product.name }}">
             </div>
@@ -10,9 +15,9 @@
               <div class="card-body">
                 <h3 class="card-title">{{ product.name }}</h3>
                 <p class="card-text">{{ product.descrip }}</p>
-                <p class="card-text">Marca: {{ product.brand }}</p>
+                <p class="card-text">Brand: {{ product.brand }}</p>
                 <p class="card-text">Size: {{ product.size }}</p>
-                <p class="card-text">Precio: {{ product.price }}$</p>
+                <p class="card-text">Price: {{ product.price }}$</p>
                 <p class="card-text">Stock: {{ product.stock }}</p>
                 <div class="accordion" id="orderDetailsAccordion">
                   <div class="accordion-item">
@@ -21,13 +26,13 @@
                         <div class="col-auto">
                           <a routerLink="/products">
                             <button class="btn btn-primary" type="button">
-                              Volver
+                              Back
                             </button>
                           </a>
                         </div>
                         <div class="col-auto" *ngIf="isAdmin">
                             <a (click)="goToEdit(product.id)" class="btn btn-warning">
-                                Editar
+                                Edit
                             </a>
                         </div>
                         <div class="col-auto" *ngIf="isAdmin">
@@ -41,9 +46,17 @@
                 </div>
               </div>
             </div>
+          }
           </div>
         </div>
       </div>
     </div>
   </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+ 
   

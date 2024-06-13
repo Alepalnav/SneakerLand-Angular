@@ -1,16 +1,33 @@
-<table class="table table-bordered table-striped">
+<div class="div-container">
+
+  <div class="mb-3">
+    <label for="filterUsername" class="form-label">Filter by Username:</label>
+    <input type="text" id="filterUsername" class="form-control" [(ngModel)]="filterUsername" (ngModelChange)="applyFilters()">
+  </div>
+
+  <div class="mb-3">
+    <label for="filterEmail" class="form-label">Filter by Email:</label>
+    <input type="text" id="filterEmail" class="form-control" [(ngModel)]="filterEmail" (ngModelChange)="applyFilters()">
+  </div>
+
+  <button class="btn btn-secondary mb-3" (click)="clearFilters()">Clear Filters</button>
+
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>ID Usuario</th>
-        <th>Username</th>
+        <th (click)="sortUsers('id')">ID Usuario <i class="bi bi-arrow-up-short" *ngIf="sortColumn === 'id' && sortDirection === 'asc'"></i><i class="bi bi-arrow-down-short" *ngIf="sortColumn === 'id' && sortDirection === 'desc'"></i></th>
+        <th (click)="sortUsers('username')">Username <i class="bi bi-arrow-up-short" *ngIf="sortColumn === 'username' && sortDirection === 'asc'"></i><i class="bi bi-arrow-down-short" *ngIf="sortColumn === 'username' && sortDirection === 'desc'"></i></th>
         <th>Name</th>
-        <th>Email</th>
+        <th (click)="sortUsers('email')">Email <i class="bi bi-arrow-up-short" *ngIf="sortColumn === 'email' && sortDirection === 'asc'"></i><i class="bi bi-arrow-down-short" *ngIf="sortColumn === 'email' && sortDirection === 'desc'"></i></th>
         <th>Address</th>
         <th>Rol</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngIf="filteredUsers.length === 0">
+        <td colspan="6">No users found</td>
+      </tr>
+      <tr *ngFor="let user of filteredUsers">
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.name }}</td>
@@ -20,4 +37,5 @@
       </tr>
     </tbody>
   </table>
-  
+
+</div>

@@ -7,3 +7,13 @@ body {
     color: #fff;
     border-radius: 1rem;
 }
+
+.shadow {
+    width: 500px;
+}
+
+@media only screen and (max-width:468px){
+    .shadow {
+        width: 100% !important;
+    }
+}

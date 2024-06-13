@@ -4,6 +4,7 @@ import { User } from '../interfaces/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginCredentials } from '../interfaces/login-credentials';
 import { jwtDecode } from 'jwt-decode';
+import { Order, OrderDelivered } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class UserService {
   login(loginCredentials: LoginCredentials): Observable<string> {
     return this.http.post(`${this.url}/auth/login`, loginCredentials, { responseType: 'text' }).pipe(
       map(response => {
-        const token = response.split('Bearer ')[1]; // Extraer token JWT
+        console.log(response);
+        const token = response; // Extraer token JWT
         return token;
       })
     );
@@ -37,7 +39,7 @@ export class UserService {
     this.currentUser = user;
   }
 
-  getCurrentUser(): any {
+  getCurrentUser() {
     return this.currentUser;
   }
 
@@ -50,6 +52,13 @@ export class UserService {
       return this.currentUser.role;
     }else{
       return '';
+    }
+  }
+  getUserId():number {
+    if(this.currentUser!=null){
+      return this.currentUser.id;
+    }else{
+      return 0;
     }
   }
 
@@ -69,9 +78,26 @@ export class UserService {
     this.setCurrentUser(null);
   }
 
-  getUsers():Observable<User[]>{
+  getUsers(): Observable<User[]> {
+  
     return this.http.get<User[]>(`${this.url}/users`);
-
   }
+
+  getOrders(id:number):Observable<Order[]>{
+    return this.http.get<Order[]>(`${this.url}/ordersByUser?user=${id}`);
+  }
+
+  getUser(id:number):Observable<User>{
+    return this.http.get<User>(`${this.url}/users/${id}`)
+  }
+
+  deliveredOrder(id:number,order:OrderDelivered):Observable<Order>{
+    return this.http.put<Order>(`${this.url}/orders/${id}`,order);
+  }
+
+  deleteOrder(id:number):Observable<Order>{
+    return this.http.delete<Order>(`${this.url}/orders/${id}`);
+  }
+
 
 }

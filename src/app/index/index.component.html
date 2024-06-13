@@ -5,15 +5,8 @@
         <h1 class="display-1">SneakerLand</h1>
         <h4>Tu tienda de confianza</h4>
     </div>
-    <div class="col-md-4 text-center">
-        <img src="assets/logo.png" class="img-fluid" alt="Imagen de la página">
-    </div>
 </div>
-    <div>
-        <div class="col-md-12">
-            <h2 class="text-center title-styled">Recomendaciones</h2>
-        </div>
-    </div>
+    
     <div>
         <div class="col-md-8 offset-md-2">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -22,15 +15,17 @@
                         <div class="card-body">
                             <div class="col">
                                 <div class="card h-100 shadow p-3">
-                                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                                        <img [src]="products[0].image" class="card-img-top">
-                                    </div>
+                                    @if (products[0]) {
+                                        <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                            <img [src]="products[0].image" alt="imagen" class="card-img-top">
+                                        </div>
                                     <div class="card-body">
                                         <h3 class="card-title text-center">{{products[0].name}}</h3>
-                                        <a (click)="goToDetails(products[0].id)" class="btn btn-1 d-block mx-auto">Detalles</a>
-                                    </div>
+                                    <a (click)="goToDetails(products[0].id)" class="btn btn-1 d-block mx-auto">Details</a>
                                 </div>
+                            }
                             </div>
+                        </div>
                         </div>
                     </div>
                     
@@ -38,6 +33,8 @@
                         <div class="card-body">
                             <div class="col">
                                 <div class="card h-100 shadow p-3">
+                                    @if (products[1]) {
+
                                     <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
                                         <img [src]="products[1].image" class="card-img-top">
                                     </div>
@@ -45,6 +42,7 @@
                                         <h3 class="card-title text-center">{{products[1].name}}</h3>
                                         <a (click)="goToDetails(products[1].id)" class="btn btn-1 d-block mx-auto">Detalles</a>
                                     </div>
+                                }
                                 </div>
                             </div>
                         </div>
@@ -53,13 +51,15 @@
                         <div class="card-body">
                             <div class="col">
                                 <div class="card h-100 shadow p-3">
-                                    <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
-                                        <img [src]="products[2].image" class="card-img-top">
-                                    </div>
+                                    @if(products[2]){
+                                        <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
+                                            <img [src]="products[2].image" class="card-img-top">
+                                        </div>
                                     <div class="card-body">
                                         <h3 class="card-title text-center">{{products[2].name}}</h3>
-                                        <a (click)="goToDetails(products[2].id)" class="btn btn-1 d-block mx-auto">Detalles</a>
-                                    </div>
+                                    <a (click)="goToDetails(products[2].id)" class="btn btn-1 d-block mx-auto">Detalles</a>
+                                </div>
+                            }
                                 </div>
                             </div>
                         </div>
@@ -76,40 +76,43 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-4">
         <div class="col-md-12">
-            <h2 class="text-center title-styled">Marcas</h2>
+            <h3 class="text-center">Brands</h3>
         </div>
     </div>
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-2">
-            <a (click)="goToBrand('Nike')" class="card-link">
-                <button>
-                    <span>Nike</span>
-                </button>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a (click)="goToBrand('Adidas')" class="card-link">
-                <button>
-                    <span>Adidas</span>
-                </button>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a (click)="goToBrand('Puma')" class="card-link">
-                <button>
-                    <span>Puma</span>
-                </button>
-            </a>
-        </div>
-        <div class="col-md-2">
-            <a (click)="goToBrand('Vans')" class="card-link">
-                <button>
-                    <span>Vans</span>
-                </button>
-            </a>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2">
+                <a (click)="goToBrand('Nike')" class="card-link">
+                    <button class="btn btn-primary w-100">
+                        <span>Nike</span>
+                    </button>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2">
+                <a (click)="goToBrand('Adidas')" class="card-link">
+                    <button class="btn btn-primary w-100">
+                        <span>Adidas</span>
+                    </button>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2">
+                <a (click)="goToBrand('Puma')" class="card-link">
+                    <button class="btn btn-primary w-100">
+                        <span>Puma</span>
+                    </button>
+                </a>
+            </div>
+            <div class="col-6 col-sm-4 col-md-3 col-lg-2 mb-2">
+                <a (click)="goToBrand('Vans')" class="card-link">
+                    <button class="btn btn-primary w-100">
+                        <span>Vans</span>
+                    </button>
+                </a>
+            </div>
         </div>
     </div>
+    
 </div>
   
