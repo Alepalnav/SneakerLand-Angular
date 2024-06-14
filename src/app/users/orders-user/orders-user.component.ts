@@ -20,6 +20,7 @@ export class OrdersUserComponent implements OnInit{
   user!:User;
   orders:Order[]=[];
   id:number=0;
+  admin:boolean=false;
 
   orderDelivered!:OrderDelivered;
 
@@ -37,6 +38,7 @@ export class OrdersUserComponent implements OnInit{
         console.log('No se han podido obtener los pedidos',err);
       }
     })
+    this.admin=this.userService.isAdmin();
   }
 
   delivered(order:Order){
